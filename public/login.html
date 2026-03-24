@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — paperDrop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="glass-card" style="width: 100%; max-width: 420px;">
+
+      <div class="text-center mb-4">
+        <h4 style="font-weight:700; font-size:1.5rem;">📄 paperDrop</h4>
+        <p style="color: var(--text-secondary); font-size:0.9rem; margin-top:4px;">
+          Welcome back
+        </p>
+      </div>
+
+      <div class="glass-alert" id="message"></div>
+
+      <div class="form-group">
+        <label class="glass-label">Email</label>
+        <input type="email" id="email" class="glass-input" placeholder="you@email.com">
+      </div>
+
+      <div class="form-group">
+        <label class="glass-label">Password</label>
+        <input type="password" id="password" class="glass-input" placeholder="Your password">
+      </div>
+
+      <button id="loginBtn" class="btn-glass mt-2">Login</button>
+
+      <p class="text-center mt-3 mb-0" style="font-size:0.85rem; color:var(--text-secondary);">
+        No account?
+        <a href="/register.html" style="color:#a89fff;">Register here</a>
+      </p>
+
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>
