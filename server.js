@@ -15,6 +15,7 @@ const db = require('./config/db')
 const authRoutes = require('./routes/auth.routes')
 const notesRoutes = require('./routes/notes.routes')
 const adminRoutes = require('./routes/admin.routes')
+const bookmarkRoutes = require('./routes/bookmark.routes')
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api/auth', authRoutes)
 app.use('/api/notes', notesRoutes)
 app.use('/api/admin', adminRoutes)
+app.use('/api/bookmarks', bookmarkRoutes)
 
 
 // Test route

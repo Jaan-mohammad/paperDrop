@@ -108,36 +108,66 @@ function createNoteCard(note) {
       }
 
         <hr class="glass-divider">
-
-        <div class="d-flex justify-content-between align-items-center">
-          <span style="font-size:0.78rem; color:var(--text-muted);">
-            📥 ${note.downloads} downloads
-          </span>
-          <button
-  class="btn-glass-outline"
-  onclick="downloadNote(${note.note_id}, '${note.title.replace(/'/g, "")}')"
-  style="font-size:0.8rem; padding:0.4rem 0.9rem;">
-  Download
-</button>
-        </div>
+<div class="d-flex justify-content-between align-items-center">
+  <span style="font-size:0.78rem; color:var(--text-muted);">
+    📥 ${note.downloads} downloads
+  </span>
+  <div class="d-flex gap-2">
+    <button
+      class="btn-glass-outline"
+      id="bookmark-btn-${note.note_id}"
+      onclick="handleBookmark(${note.note_id}, this)"
+      style="font-size:0.8rem; padding:0.4rem 0.75rem;">
+      🔖 Save
+    </button>
+    <button
+      class="btn-glass-outline"
+      onclick="downloadNote(${note.note_id}, '${note.title.replace(/'/g, "")}')"
+      style="font-size:0.8rem; padding:0.4rem 0.9rem;">
+      Download
+    </button>
+  </div>
+</div>
 
       </div>
     </div>
   `;
 }
 
+async function handleBookmark(noteId, btn) {
+  try {
+    const response = await fetch(`/api/bookmarks/${noteId}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` }
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      if (data.bookmarked) {
+        btn.textContent = '🔖 Saved'
+        btn.style.borderColor = 'var(--accent)'
+        btn.style.color = 'var(--accent)'
+      } else {
+        btn.textContent = '🔖 Save'
+        btn.style.borderColor = ''
+        btn.style.color = ''
+      }
+    }
+  } catch (error) {
+    console.error('Bookmark error:', error)
+  }
+}
+
 // ─────────────────────────────────────────
 // DOWNLOAD NOTE
 async function downloadNote(noteId, title) {
-  try {
-    window.open(
-      `/api/notes/${noteId}/download?token=${token}`,
-      '_blank'
-    )
-    setTimeout(fetchNotes, 2000)
-  } catch (error) {
-    console.error('Download error:', error)
-  }
+   try {
+      window.open(`/api/notes/${noteId}/download?token=${token}`, "_blank");
+      setTimeout(fetchNotes, 2000);
+   } catch (error) {
+      console.error("Download error:", error);
+   }
 }
 
 // ─────────────────────────────────────────
