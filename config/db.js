@@ -4,7 +4,13 @@ require('dotenv').config()
 let pool
 
 if (process.env.MYSQL_URL) {
-  pool = mysql.createPool(process.env.MYSQL_URL)
+  pool = mysql.createPool({
+    uri: process.env.MYSQL_URL,
+    waitForConnections: true,
+    connectionLimit: 10,
+    connectTimeout: 30000,
+    ssl: { rejectUnauthorized: false }
+  })
 } else {
   pool = mysql.createPool({
     host: process.env.DB_HOST,
