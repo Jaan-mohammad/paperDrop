@@ -50,12 +50,8 @@ app.listen(PORT, () => {
 
 
 // Keep alive — prevents Railway from sleeping
-const https = require('https')
-
-setInterval(() => {
-  https.get('https://paperdrop-production.up.railway.app/api/test', (res) => {
-    console.log('Keep alive ping:', res.statusCode)
-  }).on('error', (err) => {
-    console.log('Keep alive error:', err.message)
-  })
-}, 25 * 60 * 1000) // ping every 25 minutes
+https.get('https://paperdrop.onrender.com/api/test', (res) => {
+  console.log('Keep alive ping:', res.statusCode)
+}).on('error', (err) => {
+  console.log('Keep alive error:', err.message)
+})
