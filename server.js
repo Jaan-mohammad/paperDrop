@@ -5,7 +5,6 @@ const cors = require('cors')
 const path = require('path')
 
 
-
 dotenv.config()
 
 // Import db connection
@@ -49,3 +48,14 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 });
 
+
+// Keep alive — prevents Railway from sleeping
+const https = require('https')
+
+setInterval(() => {
+  https.get('https://paperdrop-production.up.railway.app/api/test', (res) => {
+    console.log('Keep alive ping:', res.statusCode)
+  }).on('error', (err) => {
+    console.log('Keep alive error:', err.message)
+  })
+}, 25 * 60 * 1000) // ping every 25 minutes
